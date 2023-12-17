@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -28,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             'gray'    => Color::Zinc,
             'info'    => Color::Blue,
             'primary' => [
-                50 => '239, 246, 255',
+                50  => '239, 246, 255',
                 100 => '219, 234, 254',
                 200 => '191, 219, 254',
                 300 => '147, 197, 253',
@@ -62,6 +63,10 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->font(
+                'JetBrains Mono',
+                provider: GoogleFontProvider::class,
+            )
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,

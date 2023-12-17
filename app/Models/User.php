@@ -6,6 +6,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,7 +22,9 @@ class User extends Authenticatable implements FilamentUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'phone',
         'email',
         'password',
     ];
@@ -49,5 +52,10 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class);
     }
 }

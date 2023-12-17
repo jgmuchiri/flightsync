@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
          \App\Models\User::factory()->create([
-             'name' => 'Admin User',
+             'first_name' => 'Flight',
+             'last_name'  => 'Sync',
              'email' => 'admin@app.com',
          ]);
     }

@@ -22,6 +22,12 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::create('company_users', function(Blueprint $table){
+            $table->id();
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->foreignIdFor(\App\Models\Company::class);
+        });
     }
 
     /**

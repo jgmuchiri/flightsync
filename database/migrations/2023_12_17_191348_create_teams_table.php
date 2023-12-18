@@ -28,6 +28,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Team::class);
+            $table->json('roles')->nullable();
             $table->string('status')->default(\App\Models\TeamUser::STATUS_ACTIVE);
             $table->unique(['user_id','team_id']);
             $table->timestamps();
@@ -39,6 +40,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('team_user');
+        Schema::dropIfExists('teams');
     }
 };

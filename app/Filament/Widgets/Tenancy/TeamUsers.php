@@ -6,6 +6,7 @@ use App\Models\Invitation;
 use App\Models\TeamUser;
 use App\Models\User;
 use Filament\Facades\Filament;
+use Filament\Infolists\Components\Section;
 use Filament\Notifications\Notification;
 use Filament\Tables;
 use Filament\Forms;
@@ -25,10 +26,17 @@ class TeamUsers extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('membership.roles')
+                    ->badge()
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('membership.status')
+                    ->sortable()
                     ->badge()
                     ->formatStateUsing(fn(string $state) => strtoupper($state))
                     ->colors([
@@ -36,34 +44,6 @@ class TeamUsers extends BaseWidget
                         'danger'  => TeamUser::STATUS_SUSPENDED
                     ])
                     ->searchable(),
-            ])
-            ->headerActions([
-                Tables\Actions\Action::make('Invite User')
-                    ->form([
-                        Forms\Components\Section::make([
-                            Forms\Components\TextInput::make('first_name')
-                                ->required()
-                                ->maxLength(50),
-                            Forms\Components\TextInput::make('last_name')
-                                ->required()
-                                ->maxLength(50),
-                            Forms\Components\TextInput::make('email')
-                                ->email()
-                                ->required()
-                                ->maxLength(255),
-                        ])->columns(3)
-                    ])
-                    ->action(function ($data) {
-                        $invite = new Invitation();
-                        $invite->fill($data);
-                        $invite->team_id = Filament::getTenant()->id;
-                        $invite->save();
-
-                        Notification::make()
-                            ->success()
-                            ->title('Invitation sent')
-                            ->send();
-                    })
             ])
             ->actions([
                 Tables\Actions\Action::make('Suspend')

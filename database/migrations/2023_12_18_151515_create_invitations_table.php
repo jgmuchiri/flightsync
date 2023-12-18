@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
+            $table->string('roles');
             $table->json('data')->nullable();
             $table->boolean('completed')->default(false);
             $table->index(['team_id','email']);

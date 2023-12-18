@@ -15,6 +15,7 @@ class Invitation extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'data'=>'array'
+        'data'  => 'array',
+        'roles' => 'array'
     ];
 }

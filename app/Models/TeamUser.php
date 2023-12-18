@@ -13,4 +13,15 @@ class TeamUser extends Model
 
     const STATUS_ACTIVE = 'active';
     const STATUS_SUSPENDED = 'suspended';
+
+    const ROLES = [
+        'admin',
+        'manager',
+        'user',
+        'guest'
+    ];
+
+    protected $casts =[
+        'roles'=>'array'
+    ];
 }

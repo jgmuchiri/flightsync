@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Tenancy\Team;
 
+use App\Filament\Widgets\Tenancy\TeamInvitations;
 use App\Filament\Widgets\Tenancy\TeamUsers;
 
 use App\Models\Invitation;
@@ -51,7 +52,8 @@ class EditPage extends EditTenantProfile
     protected function getFooterWidgets(): array
     {
         return [
-            TeamUsers::class
+            TeamUsers::class,
+            TeamInvitations::class
         ];
     }
 

@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('logo')->nullable();
@@ -23,10 +24,13 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('company_users', function(Blueprint $table){
+        Schema::create('team_user', function(Blueprint $table){
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Company::class);
+            $table->foreignIdFor(\App\Models\Team::class);
+            $table->string('status')->default(\App\Models\TeamUser::STATUS_ACTIVE);
+            $table->unique(['user_id','team_id']);
+            $table->timestamps();
         });
     }
 

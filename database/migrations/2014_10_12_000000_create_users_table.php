@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->json('data')->nullable();
+            $table->bigInteger('team_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

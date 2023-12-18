@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Tenancy\Team\EditPage;
+use App\Filament\Pages\Tenancy\Team\RegisterPage;
+use App\Models\Team;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -54,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->sidebarCollapsibleOnDesktop()
             ->brandLogo(asset('/img/logo.svg'))
-            ->brandLogoHeight('60px')
+            ->brandLogoHeight('40px')
             ->favicon(asset('/img/icon.svg'))
             ->login()
             ->profile()
@@ -85,6 +88,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->tenant(Team::class, slugAttribute: 'slug')
+            ->tenantRegistration(RegisterPage::class)
+            ->tenantProfile(EditPage::class);
     }
 }

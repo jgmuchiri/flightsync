@@ -20,6 +20,9 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +53,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password'          => 'hashed',
+        'password'          => 'hashed'
     ];
 
     public function canAccessPanel(Panel $panel): bool
@@ -83,5 +86,15 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     public function canAccessTenant(Model $tenant): bool
     {
         return $this->teams->contains($tenant);
+    }
+
+    public function hasRole($role)
+    {
+        return $role == $this->role;
+    }
+
+    public function hasTeamRole($role)
+    {
+        return in_array($role, $this->membership->roles);
     }
 }

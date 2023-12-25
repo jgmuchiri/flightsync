@@ -3,14 +3,9 @@
 namespace App\Filament\Pages\Tenancy\Team;
 
 use App\Filament\Widgets\Tenancy\TeamInvitations;
-use App\Filament\Widgets\Tenancy\TeamUsers;
 
-use App\Models\Invitation;
-use Filament\Actions\Action;
-use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\EditTenantProfile;
 
 class EditPage extends EditTenantProfile
@@ -52,7 +47,6 @@ class EditPage extends EditTenantProfile
     protected function getFooterWidgets(): array
     {
         return [
-            TeamUsers::class,
             TeamInvitations::class
         ];
     }

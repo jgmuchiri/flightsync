@@ -11,6 +11,8 @@ class Forums extends Page
 
     protected static string $view = 'filament.pages.forums';
 
+    protected static ?string $navigationGroup = 'Community';
+
     public Forum $forum;
 
     public $forums;

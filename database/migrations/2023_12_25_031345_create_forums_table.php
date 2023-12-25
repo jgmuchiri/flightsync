@@ -42,6 +42,16 @@ return new class extends Migration {
                 ->cascadeOnDelete();;
             $table->softDeletes();
         });
+
+        Schema::create('forum_reactions', function (Blueprint $table) {
+            $table->id();
+            $table->string('content');
+            $table->foreignId('user_id')
+                ->nullable()
+                ->references('id')
+                ->on('users')
+                ->nullOnDelete();
+        });
     }
 
     /**
@@ -49,6 +59,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
+        Schema::dropIfExists('forum_reactions');
         Schema::dropIfExists('forum_threads');
         Schema::dropIfExists('forums');
     }

@@ -89,6 +89,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->viteTheme('resources/css/filament/team/theme.css')
             ->tenant(Team::class, slugAttribute: 'slug')
             ->tenantRegistration(RegisterPage::class)
             ->tenantProfile(EditPage::class);

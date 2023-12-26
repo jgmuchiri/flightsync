@@ -6,6 +6,7 @@ export default {
     content: [
         './resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
+        "./resources/**/*.js",
     ],
     plugins: [
         forms,

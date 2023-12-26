@@ -8,4 +8,5 @@ Route::get('/login', function (){
     return redirect('/admin');
 })->name('login');
 
-Route::get('news', \App\Filament\Pages\News::class);
+Route::get('news', \App\Livewire\News::class);
+Route::get('forums', \App\Livewire\Forums::class);

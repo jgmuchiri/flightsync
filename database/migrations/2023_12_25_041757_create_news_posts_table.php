@@ -17,8 +17,8 @@ return new class extends Migration
             $table->longText('content');
             $table->timestamp('published_at');
             $table->string('featured_image')->nullable();
-            $table->string('source_name')->nullable();
-            $table->string('source_url')->nullable();
+            $table->string('author')->nullable();
+            $table->string('url')->nullable();
             $table->json('tags')->nullable();
             $table->json('location')->nullable(); //city,state,country,lat,long
             $table->boolean('hidden')->default(false);

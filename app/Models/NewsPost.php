@@ -16,7 +16,10 @@ class NewsPost extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'published_at'=>'date'
+        'published_at' => 'date',
+        'tags'         => 'array',
+        'location'     => 'array',
+        'data'         => 'array'
     ];
 
     public function user(): BelongsTo

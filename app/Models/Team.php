@@ -6,7 +6,6 @@ use Filament\Models\Contracts\HasCurrentTenantLabel;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Team extends Model implements HasAvatar, HasCurrentTenantLabel
@@ -33,5 +32,10 @@ class Team extends Model implements HasAvatar, HasCurrentTenantLabel
     public function getCurrentTenantLabel(): string
     {
         return 'Active team';
+    }
+
+    public function newsPosts()
+    {
+        return $this->hasMany(NewsPost::class);
     }
 }

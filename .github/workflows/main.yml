@@ -1,0 +1,45 @@
+name: Deploy to production
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env: 
+  SSH_KEY_NAME: id_rsa
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup SSH
+      run: |
+         ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y ) \
+         && eval $(ssh-agent -s) \
+         && mkdir -p ~/.ssh \
+         && echo -e "${{ secrets.PROD_SSH_KEY }}" > ~/.ssh/${{ env.SSH_KEY_NAME }} \
+         && chmod 600 ~/.ssh/${{ env.SSH_KEY_NAME }} \
+         && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config \
+         && ssh-keyscan -H ${{ vars.PROD_HOST }} > ~/.ssh/known_hosts
+         
+    - name: Deploy with Git
+      run: |
+        ssh -i ~/.ssh/${{ env.SSH_KEY_NAME }} "${{ vars.PROD_SSH_USER }}"@"${{ vars.PROD_HOST }}" \
+         "cd ${{ vars.PROD_PATH }} \
+         && php artisan down \
+         && git reset HEAD && git checkout -- . \
+         && git checkout . && git clean -f -d \
+         && git checkout main && git pull origin main \
+         && composer install --no-interaction \
+         && npm i && npm run build \
+         && git reset HEAD && git checkout -- . \
+         && php artisan migrate --force \
+         && php artisan up \
+         && php artisan cache:clear \
+         && exit"
+    - name: cleanup
+      run: rm -rf ~/.ssh

@@ -7,25 +7,25 @@
             class="grid grid-flow-row gap-2 text-neutral-600 sm:grid-cols-1 md:grid-cols-2">
             @foreach($posts as $key => $post)
                 @if($key <= 3)
-                    <div class="bg-white w-full flex items-center px-2 rounded-xl shadow border">
+                    <a href="{{$post->url}}" class="bg-white w-full flex items-center px-2 rounded-md shadow">
                         <div class="flex items-center space-x-4">
                             <img
                                 src="{{$post->featured_image}}"
-                                alt="My profile" class="w-64 h-32 rounded-sm">
+                                alt="My profile" class="w-64 h-28 rounded-md">
                         </div>
                         <div class="flex-grow p-3">
-                            <div class="font-semibold text-gray-700">
+                            <div class="font-semibold text-primary-600">
                                 {{$post->title}}
                             </div>
-                            <div class="text-sm text-gray-500">
+                            <div class="text-sm text-gray-400">
                                 {{$post->description}}
                             </div>
-                            <div class="text-xs mt-2 text-gray-700 dark:text-gray-400">
+                            <div class="text-xs mt-2 text-gray-800 dark:text-primary-400">
                                 {{$post->published_at->format('d M Y H:i')}} |
-                                {{$post->source_name}}
+                                {{$post->author}}
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @endif
             @endforeach
         </div>

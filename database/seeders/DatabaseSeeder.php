@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\NewsPost;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
-        \App\Models\Team::factory()->create([
-            'name'  => 'Flight Sync',
-            'slug'  => 'flight-sync',
-            'email' => 'support@flightsync.com',
-        ]);
 
         \App\Models\User::factory()->create([
             'first_name' => 'Flight',

@@ -30,12 +30,6 @@ return new class extends Migration
                 ->on('users')
                 ->nullOnDelete();
 
-            $table->foreignId('team_id')
-                ->nullable()
-                ->references('id')
-                ->on('teams')
-                ->nullOnDelete();
-
             $table->timestamps();
             $table->softDeletes();
         });

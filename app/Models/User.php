@@ -16,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser, HasTenants
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -61,40 +61,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         return true;
     }
 
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(Team::class);
-    }
-
-    public function team()
-    {
-        return $this->belongsTo(Team::class);
-    }
-
-    public function membership()
-    {
-        return $this
-            ->hasOne(TeamUser::class)
-            ->where('team_id', Filament::getTenant()->id);
-    }
-
-    public function getTenants(Panel $panel): Collection
-    {
-        return $this->teams;
-    }
-
-    public function canAccessTenant(Model $tenant): bool
-    {
-        return $this->teams->contains($tenant);
-    }
-
     public function hasRole($role)
     {
         return $role == $this->role;
-    }
-
-    public function hasTeamRole($role)
-    {
-        return in_array($role, $this->membership->roles);
     }
 }

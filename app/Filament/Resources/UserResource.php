@@ -6,7 +6,6 @@ use App\Filament\Forms\UserForm;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Tables\UserTable;
-use App\Models\TeamUser;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Forms\Form;
@@ -23,12 +22,6 @@ class   UserResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationGroup = 'Advanced';
-
-    public static function getEloquentQuery(): Builder
-    {
-        $users =  TeamUser::where('team_id', Filament::getTenant()->id)->pluck('user_id');
-        return User::query()->whereIn('id', $users);
-    }
 
     public static function form(Form $form): Form
     {

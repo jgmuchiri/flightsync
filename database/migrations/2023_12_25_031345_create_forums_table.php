@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description')->nullable();
             $table->foreignIdFor(\App\Models\Forum::class, 'parent_id')
+                ->nullable()
                 ->constrained('forums')
                 ->restrictOnDelete();
             $table->foreignId('user_id')
